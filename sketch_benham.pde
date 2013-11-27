@@ -42,28 +42,14 @@ void benham(int size, int lineNum, int thickness, float r) {
   ellipse(cord, cord, thickness / 2, thickness / 2);
 
   noFill();
-  for (int i = 0; i < lineNum; i++) {
-    ellipseSize -= thickness * 2;
-    arct(cord, cord, ellipseSize, ellipseSize, 
-    PI + r, PI+QUARTER_PI + r, thickness);
-  }
-
-  for (int i = 0; i < lineNum; i++) {
-    ellipseSize -= thickness * 2;
-    arct(cord, cord, ellipseSize, ellipseSize, 
-    PI + QUARTER_PI + r, PI + HALF_PI + r, thickness);
-  }
-  
-  for (int i = 0; i < lineNum; i++) {
-    ellipseSize -= thickness * 2;
-    arct(cord, cord, ellipseSize, ellipseSize, 
-    PI + HALF_PI + r, TWO_PI - QUARTER_PI + r, thickness);
-  }
-
-  for (int i = 0; i < lineNum; i++) {
-    ellipseSize -= thickness * 2;
-    arct(cord, cord, ellipseSize, ellipseSize, 
-    TWO_PI - QUARTER_PI + r, TWO_PI + r, thickness);
+  for (int j = 0; j < 4; j++) {
+    for (int i = 0; i < lineNum; i++) {
+      ellipseSize -= thickness * 2;
+      arct(cord, cord, ellipseSize, ellipseSize, 
+      PI + (j *  QUARTER_PI) + r, 
+      PI + QUARTER_PI + (j * QUARTER_PI) + r,
+      thickness);
+    }
   }
 } 
 
