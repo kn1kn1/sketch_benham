@@ -1,9 +1,9 @@
 int size = 480;
-int rps = -1;
+float rps = 1;
 int lineNum = 3;
 int thickness = 10;
 
-float x = 0;
+float r = 0;
 
 void setup() {
   size(size, size, P2D);
@@ -12,13 +12,20 @@ void setup() {
   frameRate(30);
   smooth(4);
   
-  benham(size, lineNum, thickness, x);
+  benham(size, lineNum, thickness, r);
+}
+
+void mouseClicked() {
+ rps = map(mouseX, 0, width, -10, 10);
 }
 
 void draw() {
   background(255);
-  benham(size, lineNum, thickness, x);
-  x = (x + rps * (TWO_PI / 30)) % TWO_PI;
+  fill(50);
+  text(rps + " r/sec.", 10, 20);
+  
+  benham(size, lineNum, thickness, r);
+  r = (r + rps * (TWO_PI / 30)) % TWO_PI;
 }
 
 void arct(float a, float b, float c, float d, 
