@@ -6,33 +6,34 @@ int LINENUM = 3;
 int THICKNESS = 10;
 
 float r = 0;
-float rps;
+float rps = 1;
+
 HScrollbar hs;
 
 void setup() {
-  size(SIZE, SIZE, P2D);
+  size(SIZE, SIZE);
   background(255);
   stroke(0);
   frameRate(30);
   smooth(4);
   
-  hs = new HScrollbar(0, height - (HS_HEIGHT / 2), width, 
-    HS_HEIGHT, 4);
-  
-  benham(SIZE, LINENUM, THICKNESS, r);
+  hs = new HScrollbar(0, height - (HS_HEIGHT / 2), width, HS_HEIGHT, 4);
 }
 
-void draw() {  
+void draw() {
   rps = map(hs.getPos(), 0, width, -MAX_RPS, MAX_RPS);
+  r = (r + rps * (TWO_PI / 30)) % TWO_PI;
   
+  pushMatrix();
+  translate(width / 2, height / 2);
+  rotate(r);
   background(255);
   stroke(0);
+  benham(SIZE, LINENUM, THICKNESS, 0);
+  popMatrix();
   
   fill(50);
   text(rps + " r/sec.", 10, height - HS_HEIGHT - 10);
-  
-  benham(SIZE, LINENUM, THICKNESS, r);
-  r = (r + rps * (TWO_PI / 30)) % TWO_PI;
 
   fill(255);
   hs.update();
@@ -47,7 +48,7 @@ void arct(float a, float b, float c, float d,
 }
 
 void benham(int size, int lineNum, int thickness, float r) {
-  int cord = size / 2;
+  int cord = 0;
   int ellipseSize = size - 80;
 
   noFill();
