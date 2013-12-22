@@ -3,7 +3,7 @@ float MAX_RPS = 10;
 
 int SIZE = 480;
 int LINENUM = 3;
-int THICKNESS = 10;
+int THICKNESS = 5;
 
 float r = 0;
 float rps = 1;
@@ -15,7 +15,7 @@ void setup() {
   background(255);
   stroke(0);
   frameRate(30);
-  smooth(4);
+  smooth();
   
   hs = new HScrollbar(0, height - (HS_HEIGHT / 2), width, HS_HEIGHT, 4);
 }
@@ -42,15 +42,16 @@ void draw() {
 
 void arct(float a, float b, float c, float d, 
     float start, float stop, int t) {
-  for (int i = 0; i < t; i++) {
-    arc(a, b, c - i, d - i, start, stop);
-  }
+  strokeWeight(t);
+  strokeCap(SQUARE);
+  arc(a, b, c, d, start, stop);
 }
 
 void benham(int size, int lineNum, int thickness, float r) {
   int cord = 0;
   int ellipseSize = size - 80;
 
+  strokeWeight(1);
   noFill();
   ellipse(cord, cord, ellipseSize, ellipseSize);
 
@@ -63,7 +64,7 @@ void benham(int size, int lineNum, int thickness, float r) {
   noFill();
   for (int j = 0; j < 4; j++) {
     for (int i = 0; i < lineNum; i++) {
-      ellipseSize -= thickness * 2;
+      ellipseSize -= thickness * 4;
       arct(cord, cord, ellipseSize, ellipseSize, 
       PI + (j *  QUARTER_PI) + r, 
       PI + QUARTER_PI + (j * QUARTER_PI) + r,
